@@ -22,7 +22,7 @@ class Main extends PluginBase {
         $position = $player->getPosition();
 
         // Spawn fireworks item
-        $fireworks = Item::get(Item::FIREWORKS);
+        $fireworks = Item::getItem(Item::FIREWORK);
 
         // Create base NBT for entity
         $nbt = new CompoundTag("", []);
