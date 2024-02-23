@@ -3,7 +3,7 @@
 namespace FireworkCelebration;
 
 use pocketmine\plugin\PluginBase;
-use pocketmine\Player;
+use pocketmine\player\Player;
 use pocketmine\item\Item;
 use pocketmine\world\sound\LaunchSound;
 use pocketmine\world\sound\ExplodeSound;
