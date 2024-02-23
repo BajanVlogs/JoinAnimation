@@ -4,7 +4,7 @@ namespace FireworkCelebration;
 
 use pocketmine\plugin\PluginBase;
 use pocketmine\player\Player;
-use pocketmine\item\ItemFactory;
+use pocketmine\item\Item;
 use pocketmine\world\sound\LaunchSound;
 use pocketmine\world\sound\ExplodeSound;
 use pocketmine\world\particle\ExplodeParticle;
@@ -22,19 +22,19 @@ class Main extends PluginBase {
         $position = $player->getPosition();
 
         // Spawn fireworks item
-        $fireworks = ItemFactory::get(ItemFactory::FIREWORKS);
+        $fireworks = Item::get(Item::FIREWORKS);
 
         // Create base NBT for entity
-        $nbt = Entity::createBaseNBT($position);
+        $nbt = new CompoundTag("", []);
 
         // Create the entity
-        $entity = Entity::createEntity("FireworksRocketEntity", $player->getWorld(), $nbt);
+        $entity = Entity::createEntityInstance("FireworksRocketEntity", $player->getWorld(), $nbt);
 
         // Play firework launch sound
-        $player->getWorld()->addSound(new LaunchSound($player));
+        $player->getWorld()->addSound($player->getPosition(), new LaunchSound());
 
         // Play a generic sound
-        $player->getWorld()->addSound(new ExplodeSound($player));
+        $player->getWorld()->addSound($player->getPosition(), new ExplodeSound());
 
         // Spawn a firework particle
         $player->getWorld()->addParticle(new ExplodeParticle($position));
