@@ -1,0 +1,6 @@
+name: FireworkCelebration
+version: 1.0.0
+api: [5.0.0]
+main: FireworkCelebration\Main
+author: BajanVlogs
+description: A plugin that shoots fireworks near a player for 5 seconds when they join the server.
