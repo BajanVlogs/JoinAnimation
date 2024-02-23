@@ -3,38 +3,28 @@
 namespace FireworkCelebration;
 
 use pocketmine\plugin\PluginBase;
-use pocketmine\player\Player;
-use pocketmine\item\Item;
+use pocketmine\event\Listener;
+use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\world\sound\LaunchSound;
 use pocketmine\world\sound\ExplodeSound;
 use pocketmine\world\particle\ExplodeParticle;
-use pocketmine\entity\Entity;
-use pocketmine\nbt\tag\CompoundTag;
 
-class Main extends PluginBase {
+class Main extends PluginBase implements Listener {
 
     public function onEnable(): void {
         $this->getLogger()->info("FireworkCelebration plugin has been enabled!");
+        $this->getServer()->getPluginManager()->registerEvents($this, $this); // Register events
     }
 
-    public function spawnFireworks(Player $player): void {
-        // Fetch the player's position
+    public function onPlayerJoin(PlayerJoinEvent $event): void {
+        $player = $event->getPlayer();
         $position = $player->getPosition();
 
-        // Spawn fireworks item
-        $fireworks = Item::getItem(Item::FIREWORK);
-
-        // Create base NBT for entity
-        $nbt = new CompoundTag("", []);
-
-        // Create the entity
-        $entity = Entity::createEntityInstance("FireworksRocketEntity", $player->getWorld(), $nbt);
-
         // Play firework launch sound
-        $player->getWorld()->addSound($player->getPosition(), new LaunchSound());
+        $player->getWorld()->addSound($position, new LaunchSound());
 
         // Play a generic sound
-        $player->getWorld()->addSound($player->getPosition(), new ExplodeSound());
+        $player->getWorld()->addSound($position, new ExplodeSound());
 
         // Spawn a firework particle
         $player->getWorld()->addParticle(new ExplodeParticle($position));
