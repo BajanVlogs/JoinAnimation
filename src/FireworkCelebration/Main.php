@@ -3,50 +3,39 @@
 namespace FireworkCelebration;
 
 use pocketmine\plugin\PluginBase;
-use pocketmine\event\Listener;
-use pocketmine\event\player\PlayerJoinEvent;
-use pocketmine\math\Vector3;
-use pocketmine\level\Position;
-use pocketmine\level\sound\FireworkLaunchSound;
-use pocketmine\level\sound\ClickSound;
-use pocketmine\level\sound\GenericSound;
-use pocketmine\level\particle\FireworkParticle;
 use pocketmine\Player;
 use pocketmine\item\Item;
+use pocketmine\level\sound\FireworkLaunchSound;
+use pocketmine\level\sound\GenericSound;
+use pocketmine\level\particle\FireworkParticle;
 use pocketmine\entity\Entity;
-use pocketmine\scheduler\ClosureTask;
 
-class Main extends PluginBase implements Listener {
+class Main extends PluginBase {
 
-    public function onEnable() {
-        $this->getLogger()->info("FireworkCelebration enabled!");
-        $this->getServer()->getPluginManager()->registerEvents($this, $this);
+    public function onEnable(): void {
+        $this->getLogger()->info("FireworkCelebration plugin has been enabled!");
     }
 
-    public function onPlayerJoin(PlayerJoinEvent $event) {
-        $player = $event->getPlayer();
-        $this->spawnFireworks($player);
-    }
+    public function spawnFireworks(Player $player): void {
+        // Fetch the player's position
+        $position = $player->getPosition();
 
-    private function spawnFireworks(Player $player) {
-        $level = $player->getLevel();
-        $pos = $player->getPosition();
+        // Spawn fireworks item
+        $fireworks = Item::get(Item::FIREWORKS);
 
-        $firework = Item::get(Item::FIREWORKS, 0, 1);
-        $nbt = Entity::createBaseNBT($pos, new Vector3(0.001, 0.05, 0.001), mt_rand(0, 359), 0);
-        $fireworkEntity = Entity::createEntity("FireworksRocket", $level, $nbt, $firework);
-        $fireworkEntity->setOwningEntity($player);
-        $fireworkEntity->spawnToAll();
+        // Create base NBT for entity
+        $nbt = Entity::createBaseNBT($position);
 
-        $level->addSound(new FireworkLaunchSound($pos), [$player]);
-        $level->addSound(new GenericSound($pos, 40), [$player]); // Sound ID for ENTITY_FIREWORK_LAUNCH
-        $level->addParticle(new FireworkParticle(new Vector3($pos->x, $pos->y, $pos->z)));
+        // Create the entity
+        $entity = Entity::createEntity("Firework", $player->getLevel(), $nbt);
 
-        // Schedule fireworks to last for 5 seconds
-        $this->getScheduler()->scheduleDelayedTask(new ClosureTask(function (int $currentTick) use ($fireworkEntity) {
-            if (!$fireworkEntity->isClosed()) {
-                $fireworkEntity->close();
-            }
-        }), 100); // 100 ticks = 5 seconds (20 ticks per second)
+        // Play firework launch sound
+        $player->getLevel()->addSound(new FireworkLaunchSound($player));
+
+        // Play a generic sound
+        $player->getLevel()->addSound(new GenericSound($player));
+
+        // Spawn a firework particle
+        $player->getLevel()->addParticle(new FireworkParticle($position));
     }
 }
