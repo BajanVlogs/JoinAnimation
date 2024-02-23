@@ -7,8 +7,6 @@ use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\world\sound\LaunchSound;
 use pocketmine\world\sound\ExplodeSound;
-use pocketmine\world\particle\ExplodeParticle;
-use pocketmine\world\particle;
 
 class Main extends PluginBase implements Listener {
 
@@ -27,8 +25,5 @@ class Main extends PluginBase implements Listener {
 
         // Play a generic sound
         $world->addSound($position, new ExplodeSound());
-
-        // Spawn a firework particle
-        $world->addParticle(new ExplodeParticle($position->x, $position->y, $position->z));
     }
 }
