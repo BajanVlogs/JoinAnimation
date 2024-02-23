@@ -8,6 +8,7 @@ use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\world\sound\LaunchSound;
 use pocketmine\world\sound\ExplodeSound;
 use pocketmine\world\particle\ExplodeParticle;
+use pocketmine\world\particle;
 
 class Main extends PluginBase implements Listener {
 
