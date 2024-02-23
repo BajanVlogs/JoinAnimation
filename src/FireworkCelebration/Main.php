@@ -19,14 +19,15 @@ class Main extends PluginBase implements Listener {
     public function onPlayerJoin(PlayerJoinEvent $event): void {
         $player = $event->getPlayer();
         $position = $player->getPosition();
+        $world = $player->getWorld();
 
         // Play firework launch sound
-        $player->getWorld()->addSound($position, new LaunchSound());
+        $world->addSound($position, new LaunchSound());
 
         // Play a generic sound
-        $player->getWorld()->addSound($position, new ExplodeSound());
+        $world->addSound($position, new ExplodeSound());
 
         // Spawn a firework particle
-        $player->getWorld()->addParticle(new ExplodeParticle($position));
+        $world->addParticle(new ExplodeParticle($position->x, $position->y, $position->z));
     }
 }
