@@ -1,0 +1,21 @@
+# config.yml
+
+# Sound settings
+sounds:
+  launch_sound: true
+  explode_sound: true
+
+# Welcome message settings
+welcome_message:
+  enabled: true
+  prefix: "&aWelcome to RebirthBE, "
+  suffix: "&aEnjoy your time here!"
+
+# Title settings
+title:
+  enabled: true
+  main_title: "&bRebirthBE"
+  subtitle: "&eFactions"
+  fade_in: 20
+  stay: 40
+  fade_out: 20
