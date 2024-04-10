@@ -12,24 +12,44 @@ use pocketmine\utils\TextFormat;
 class Main extends PluginBase implements Listener {
 
     public function onEnable(): void {
+        $this->saveDefaultConfig(); // Saves default config if it doesn't exist
         $this->getLogger()->info("JoinAnimation plugin has been enabled!");
         $this->getServer()->getPluginManager()->registerEvents($this, $this); // Register events
     }
 
     public function onPlayerJoin(PlayerJoinEvent $event): void {
         $player = $event->getPlayer();
-        $position = $player->getPosition();
-        $world = $player->getWorld();
+        $config = $this->getConfig();
 
-        // Play multiple sounds for a welcoming effect
-        $world->addSound($position, new LaunchSound());
-        $world->addSound($position, new ExplodeSound());
+        // Play sounds based on config settings
+        if ($config->get("sounds.launch_sound")) {
+            $player->getWorld()->addSound($player->getPosition(), new LaunchSound());
+        }
+        if ($config->get("sounds.explode_sound")) {
+            $player->getWorld()->addSound($player->getPosition(), new ExplodeSound());
+        }
 
-        // Customize the welcome message
-        $player->sendMessage(TextFormat::GREEN . "Welcome to the server, " . $player->getName() . "!");
-        $player->sendMessage(TextFormat::GREEN . "Enjoy your time here!");
+        // Send welcome message if enabled in config
+        if ($config->get("welcome_message.enabled")) {
+            $prefix = $config->get("welcome_message.prefix");
+            $suffix = $config->get("welcome_message.suffix");
+            $player->sendMessage(TextFormat::colorize($prefix . $player->getName() . $suffix));
+        }
 
-        // Display an animation over the player's screen
-        $player->sendTitle(TextFormat::AQUA . "Welcome!", TextFormat::YELLOW . "Enjoy your time here!", 20, 40, 20);
+        // Send title if enabled in config
+        if ($config->get("title.enabled")) {
+            $mainTitle = $config->get("title.main_title");
+            $subTitle = $config->get("title.subtitle");
+            $fadeIn = $config->get("title.fade_in");
+            $stay = $config->get("title.stay");
+            $fadeOut = $config->get("title.fade_out");
+            $player->sendTitle(
+                TextFormat::colorize($mainTitle),
+                TextFormat::colorize($subTitle),
+                $fadeIn,
+                $stay,
+                $fadeOut
+            );
+        }
     }
 }
