@@ -1,4 +1,3 @@
-```markdown
 # JoinAnimation Plugin
 
 This PocketMine-MP plugin provides a customizable welcome experience for players joining your server by playing sounds and displaying messages and titles.
