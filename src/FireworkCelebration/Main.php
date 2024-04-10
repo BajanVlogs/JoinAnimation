@@ -30,6 +30,6 @@ class Main extends PluginBase implements Listener {
         $player->sendMessage(TextFormat::GREEN . "Enjoy your time here!");
 
         // Display an animation over the player's screen
-        $player->addTitle(TextFormat::AQUA . "Welcome!", TextFormat::YELLOW . "Enjoy your time here!", 20, 40, 20);
+        $player->sendTitle(TextFormat::AQUA . "Welcome!", TextFormat::YELLOW . "Enjoy your time here!", 20, 40, 20);
     }
 }
