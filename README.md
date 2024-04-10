@@ -1,25 +1,32 @@
-# Firework Celebration
+# JoinAnimation Plugin
 
-Welcome to the Firework Celebration Plugin for PMMP API 5! This plugin adds a fun and festive touch to your server by shooting fireworks near a player when they join, creating a celebratory moment for new players.
+The JoinAnimation plugin is a simple PocketMine-MP plugin that adds a celebratory welcome message, sound effects, and an animation when players join the server.
 
 ## Features
-- Shoots fireworks near a player when they join the server.
-- Fireworks display lasts for 5 seconds to celebrate the player's arrival.
-- Adds sound effects and particle effects for a complete celebratory experience.
+
+- Welcomes players with a customized message upon joining the server.
+- Plays firework launch and explosion sounds for a celebratory effect.
+- Displays an animation over the player's screen upon joining.
 
 ## Installation
-1. Download the plugin.
-2. Place the plugin in the `plugins` folder of your PocketMine-MP server.
-3. Start or restart your server.
+
+1. Make sure you have PocketMine-MP installed and running.
+2. Download the latest version of the JoinAnimation plugin from the [releases page](link/to/releases).
+3. Copy the downloaded plugin `.phar` file into the `plugins` folder of your PocketMine-MP server.
+4. Restart or reload your server to enable the plugin.
 
 ## Usage
-- Players will see fireworks near their location upon joining the server.
-- The fireworks display will last for 5 seconds, accompanied by sound effects and particle effects.
 
-## Credits
-- Plugin created by [BajanVlogs]
+Once installed, the JoinAnimation plugin will automatically welcome players with a customized message, play celebratory sounds, and display an animation when they join the server.
+
+## Configuration
+
+The JoinAnimation plugin does not require any configuration. However, you can modify the welcome message, sound effects, and animation settings directly in the plugin code if desired.
 
 ## Support
-For any issues or feedback, feel free to contact make a ticket
 
-Enjoy the Firework Celebration Plugin and create memorable experiences for your players!
+If you encounter any issues or have suggestions for improvements, feel free to open an issue on the [GitHub repository](link/to/github).
+
+## License
+
+This plugin is open-source and available under the [MIT License](link/to/license).
