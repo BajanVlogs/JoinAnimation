@@ -3,6 +3,11 @@
 
 This PocketMine-MP plugin provides a customizable welcome experience for players joining your server by playing sounds and displaying messages and titles.
 
+[![](https://poggit.pmmp.io/shield.state/JoinAnimation)](https://poggit.pmmp.io/p/JoinAnimation)
+<a href="https://poggit.pmmp.io/p/JoinAnimation"><img src="https://poggit.pmmp.io/shield.state/JoinAnimation"></a>
+[![](https://poggit.pmmp.io/shield.api/JoinAnimation)](https://poggit.pmmp.io/p/JoinAnimation)
+<a href="https://poggit.pmmp.io/p/JoinAnimation"><img src="https://poggit.pmmp.io/shield.api/JoinAnimation"></a>
+
 ## Features
 
 - Plays configurable sounds when players join.
