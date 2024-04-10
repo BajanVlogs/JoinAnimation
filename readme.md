@@ -28,9 +28,8 @@ Users can specify custom sounds to play when players join by adding them to the 
 ```yaml
 # Sound settings
 sounds:
-  custom_sounds:
-    - LaunchSound
-    - ExplodeSound
+    LaunchSound
+    ExplodeSound
 ```
 
 ### Welcome Message Settings
