@@ -1,6 +1,6 @@
-name: FireworkCelebration
+name: JoinAnimation
 version: 1.0.1
 api: [5.0.0]
-main: FireworkCelebration\Main
+main: JoinAnimation\Main
 author: BajanVlogs
-description: A plugin that shoots fireworks near a player for 5 seconds when they join the server.
+description: A plugin that has Animations when a player joins the server
