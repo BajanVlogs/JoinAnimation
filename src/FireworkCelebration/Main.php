@@ -7,6 +7,7 @@ use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\world\sound\LaunchSound;
 use pocketmine\world\sound\ExplodeSound;
+use pocketmine\utils\TextFormat;
 
 class Main extends PluginBase implements Listener {
 
@@ -20,10 +21,15 @@ class Main extends PluginBase implements Listener {
         $position = $player->getPosition();
         $world = $player->getWorld();
 
-        // Play firework launch sound
+        // Play multiple sounds for a welcoming effect
         $world->addSound($position, new LaunchSound());
-
-        // Play a generic sound
         $world->addSound($position, new ExplodeSound());
+
+        // Customize the welcome message
+        $player->sendMessage(TextFormat::GREEN . "Welcome to the server, " . $player->getName() . "!");
+        $player->sendMessage(TextFormat::GREEN . "Enjoy your time here!");
+
+        // Display an animation over the player's screen
+        $player->addTitle(TextFormat::AQUA . "Welcome!", TextFormat::YELLOW . "Enjoy your time here!", 20, 40, 20);
     }
 }
