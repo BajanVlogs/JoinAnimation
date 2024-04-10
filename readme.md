@@ -13,7 +13,7 @@ This PocketMine-MP plugin provides a customizable welcome experience for players
 
 ## Installation
 
-1. Download the latest version from [https://poggit.pmmp.io/r/236760/JoinAnimation_dev-13.phar).
+1. Download the latest version from [https://poggit.pmmp.io/r/236756/JoinAnimation.phar).
 2. Place the downloaded `.phar` file into the `plugins` folder of your PocketMine-MP server.
 3. Restart or reload the server.
 
