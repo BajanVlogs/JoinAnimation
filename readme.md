@@ -61,14 +61,3 @@ title:
 ## Usage
 
 Simply join the server to experience the configured welcome animation!
-
-## Support
-
-For support, bug reports, or feature requests, please [open an issue](link/to/issues) on the GitHub repository.
-
-## License
-
-This project is licensed under the [MIT License](link/to/license).
-```
-
-Make sure to replace placeholders such as `link/to/releases`, `link/to/issues`, and `link/to/license` with the actual links to your project's releases page, issue tracker, and license file respectively.
