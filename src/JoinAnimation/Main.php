@@ -1,13 +1,5 @@
 <?php
-    
-#      _       ____   __  __ 
-#     / \     / ___| |  \/  |
-#    / _ \   | |     | |\/| |
-#   / ___ \  | |___  | |  | |
-#  /_/   \_\  \____| |_|  |_|
-# The creator of this plugin was fernanACM.
-# https://github.com/fernanACM
-    
+  
 namespace JoinAnimation;
 
 use pocketmine\Server;
