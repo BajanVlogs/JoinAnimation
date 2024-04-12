@@ -1,6 +1,18 @@
 name: JoinAnimation
-version: 1.0.1
-api: [5.0.0]
-main: JoinAnimation\Main
+main: JoinAnimation\Loader
+version: 3.0.1
+api: 5.0.0
 author: BajanVlogs
-description: A plugin that has Animations when a player joins the server
+description: Simple custom JoinUI for PocketMine-MP by BajanVlogs
+website: https://github.com/BajanVlogs
+
+permissions:
+  joinanimation.command:
+    description: /joinanimation
+    default: op
+  joinanimation.command.setspawn:
+    description: /joinanimation setspawn
+    default: op
+  joinanimation.command.removespawn:
+    description: /joinanimation removespawn
+    default: op
