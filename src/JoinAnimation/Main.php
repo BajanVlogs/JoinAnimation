@@ -1,55 +1,137 @@
 <?php
-
+    
+#      _       ____   __  __ 
+#     / \     / ___| |  \/  |
+#    / _ \   | |     | |\/| |
+#   / ___ \  | |___  | |  | |
+#  /_/   \_\  \____| |_|  |_|
+# The creator of this plugin was fernanACM.
+# https://github.com/fernanACM
+    
 namespace JoinAnimation;
 
-use pocketmine\plugin\PluginBase;
+use pocketmine\Server;
+
 use pocketmine\event\Listener;
+
+use pocketmine\event\player\PlayerLoginEvent;
+use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\event\player\PlayerJoinEvent;
-use pocketmine\world\sound\LaunchSound;
-use pocketmine\world\sound\ExplodeSound;
-use pocketmine\utils\TextFormat;
 
-class Main extends PluginBase implements Listener {
+use JoinAnimation\Loader;
+use JoinAnimation\utils\JoinModeUtils;
+use JoinAnimation\utils\PluginUtils;;
 
-    public function onEnable(): void {
-        $this->saveDefaultConfig(); // Saves default config if it doesn't exist
-        $this->getLogger()->info("JoinAnimation plugin has been enabled!");
-        $this->getServer()->getPluginManager()->registerEvents($this, $this); // Register events
+class Event implements Listener{
+    
+    /**
+     * @param PlayerJoinEvent $event
+     * @return void
+     */
+    public function onJoin(PlayerJoinEvent $event): void{
+        $player = $event->getPlayer();
+        $config = Loader::getInstance()->config;
+        $spawn = Loader::getInstance()->spawn->get("Spawn");
+        $defaultSound = $config->getNested("JoinVip.Sound.default-joinSoundName");
+        # JoinVip
+        if($config->getNested("JoinVip.Support.enabled")){
+            foreach($config->getNested("JoinVip.vip-list") as $vips){
+                if($player->getName() == $vips){
+                    $event->setJoinMessage("");
+                    $message = str_replace(["{PLAYER}"], [$vips], Loader::getMessage($player, "JoinVip.Join.".$vips.".message"));
+                    Server::getInstance()->broadcastMessage($message);
+                    if($config->getNested("JoinVip.Sound.playerJoin")){
+                        PluginUtils::BroadSound($player, $config->getNested("JoinVip.Join.".$vips.".soundName") ?? $defaultSound, 500, 1);
+                    }
+                }
+            }
+            # VipList
+            $vips = $config->getNested("JoinVip.vip-list");
+            if(!in_array($player->getName(), $vips)){
+                if($config->getNested("PlayerJoin.BroadCast.playerJoin")){
+                    $event->setJoinMessage("");
+                    Server::getInstance()->broadcastMessage(Loader::getMessage($player, "PlayerJoin.BroadCast.playerJoinMessage"));
+                    if($config->getNested("PlayerJoin.BroadCast.joinSound")){
+                        PluginUtils::BroadSound($player, $config->getNested("PlayerJoin.BroadCast.joinSoundName"), 500, 1);
+                    }
+                }
+            }
+        }else{
+            if($config->getNested("PlayerJoin.BroadCast.playerJoin")){
+                $event->setJoinMessage("");
+                Server::getInstance()->broadcastMessage(Loader::getMessage($player, "PlayerJoin.BroadCast.playerJoinMessage"));
+                if($config->getNested("PlayerJoin.BroadCast.joinSound")){
+                    PluginUtils::BroadSound($player, $config->getNested("PlayerJoin.BroadCast.joinSoundName"), 500, 1);
+                }
+            }
+        }
+        # Form => JoinModeUils::sendJoinModeForm($player);
+        JoinModeUtils::sendJoinModeForm($player);
+        # Title => JoinModeUils::sendTitleMessage($player);
+        JoinModeUtils::sendTitleMessage($player);
+        # Message => JoinModeUils::sendJoinMessage($player);
+        JoinModeUtils::sendJoinMessage($player);
+        # FirstTime => JoinModeUils::sendMessageFirstTime($player);
+        JoinModeUtils::sendMessageFirstTime($player);
+
+        # Custom spawn
+        if($config->getNested("SpawnMode.joinSpawn") === "CUSTOM"){
+            if(!isset($spawn["World"], $spawn["X"], $spawn["Y"], $spawn["Z"], $spawn["Pitch"], $spawn["Yaw"])){
+                if(Server::getInstance()->isOp($player->getName())){
+                    $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "SpawnMode.undefined-message"));
+                }
+            }
+        }
     }
 
-    public function onPlayerJoin(PlayerJoinEvent $event): void {
+    /**
+     * @param PlayerQuitEvent $event
+     * @return void
+     */
+    public function onQuit(PlayerQuitEvent $event): void{
         $player = $event->getPlayer();
-        $config = $this->getConfig();
+        $config = Loader::getInstance()->config;
+        $defaultSound = $config->getNested("JoinVip.Sound.default-quitSoundName");
+        # QuitVip
+        if($config->getNested("JoinVip.Support.enabled")){
+            foreach($config->getNested("JoinVip.vip-list") as $vips){
+                if($player->getName() == $vips){
+                    $event->setQuitMessage("");
+                    $message = str_replace(["{PLAYER}"], [$vips], Loader::getMessage($player, "JoinVip.Quit.".$vips.".message"));
+                    Server::getInstance()->broadcastMessage($message);
+                    if($config->getNested("JoinVip.Sound.playerQuit")){
+                        PluginUtils::BroadSound($player, $config->getNested("JoinVip.Quit.".$vips.".soundName") ?? $defaultSound, 500, 1);
+                    }
+                }
+            }
+            # VipList
+            $vips = $config->getNested("JoinVip.vip-list");
+            if(!in_array($player->getName(), $vips)){
+                if($config->getNested("PlayerQuit.BroadCast.playerQuit")){
+                    $event->setQuitMessage("");
+                    Server::getInstance()->broadcastMessage(Loader::getMessage($player, "PlayerQuit.BroadCast.playerQuitMessage"));
+                    if($config->getNested("PlayerQuit.BroadCast.quitSound")){
+                        PluginUtils::BroadSound($player, $config->getNested("PlayerQuit.BroadCast.quitSoundName"), 500, 1);
+                    }
+                }
+            }
+        }else{
+            if($config->getNested("PlayerQuit.BroadCast.playerQuit")){
+                $event->setQuitMessage("");
+                Server::getInstance()->broadcastMessage(Loader::getMessage($player, "PlayerQuit.BroadCast.playerQuitMessage"));
+                if($config->getNested("PlayerQuit.BroadCast.quitSound")){
+                    PluginUtils::BroadSound($player, $config->getNested("PlayerQuit.BroadCast.quitSoundName"), 500, 1);
+                }
+            }
+        }
+    }
 
-        // Play sounds based on config settings
-        if ($config->get("sounds.launch_sound")) {
-            $player->getWorld()->addSound($player->getPosition(), new LaunchSound());
-        }
-        if ($config->get("sounds.explode_sound")) {
-            $player->getWorld()->addSound($player->getPosition(), new ExplodeSound());
-        }
-
-        // Send welcome message if enabled in config
-        if ($config->get("welcome_message.enabled")) {
-            $prefix = $config->get("welcome_message.prefix");
-            $suffix = $config->get("welcome_message.suffix");
-            $player->sendMessage(TextFormat::colorize($prefix . $player->getName() . $suffix));
-        }
-
-        // Send title if enabled in config
-        if ($config->get("title.enabled")) {
-            $mainTitle = $config->get("title.main_title");
-            $subTitle = $config->get("title.subtitle");
-            $fadeIn = $config->get("title.fade_in");
-            $stay = $config->get("title.stay");
-            $fadeOut = $config->get("title.fade_out");
-            $player->sendTitle(
-                TextFormat::colorize($mainTitle),
-                TextFormat::colorize($subTitle),
-                $fadeIn,
-                $stay,
-                $fadeOut
-            );
-        }
+    /**
+     * @param PlayerLoginEvent $event
+     * @return void
+     */
+    public function onLogin(PlayerLoginEvent $event): void{
+        $player = $event->getPlayer();
+        JoinModeUtils::sendSpawnMode($player);
     }
 }
