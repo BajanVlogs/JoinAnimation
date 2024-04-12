@@ -1,21 +1,272 @@
-# config.yml
+# DO NOT TOUCH!
+config-version: "2.0.0" 
 
-# Sound settings
-sounds:
-  launch_sound: true
-  explode_sound: true
+# ======(KEYS)======
+# PLUGIN:
+# {HEALTH} => player life
+# {MAX_HEALTH} => player max life
+# {FOOD} => player's hunger
+# {MAX_FOOD} => player's max hunger
+# {PING} => player connection
+# {WORLD_NAME} => world name
 
-# Welcome message settings
-welcome_message:
-  enabled: true
-  prefix: "&aWelcome to RebirthBE, "
-  suffix: "&aEnjoy your time here!"
+# EXTRAS:
+# "{LINE}" => "\n",
+# - COLORS
+#  & => §,
+# "{BLACK}" => TextFormat::BLACK,
+# "{DARK_BLUE}" => TextFormat::DARK_BLUE,
+# "{DARK_GREEN}" => TextFormat::DARK_GREEN,
+# "{CYAN}" => TextFormat::DARK_AQUA,
+# "{DARK_RED}" => TextFormat::DARK_RED,
+# "{PURPLE}" => TextFormat::DARK_PURPLE,
+# "{GOLD}" => TextFormat::GOLD,
+# "{GRAY}" => TextFormat::GRAY,
+# "{DARK_GRAY}" => TextFormat::DARK_GRAY,
+# "{BLUE}" => TextFormat::BLUE,
+# "{GREEN}" => TextFormat::GREEN,
+# "{AQUA}" => TextFormat::AQUA,
+# "{RED}" => TextFormat::RED,
+# "{PINK}" => TextFormat::LIGHT_PURPLE,
+# "{YELLOW}" => TextFormat::YELLOW,
+# "{WHITE}" => TextFormat::WHITE,
+# "{ORANGE}" => "§6"
+# "{BOLD}" => TextFormat::BOLD,
+# "{RESET}" => TextFormat::RESET
 
-# Title settings
-title:
-  enabled: true
-  main_title: "&bRebirthBE"
-  subtitle: "&eFactions"
-  fade_in: 20
-  stay: 40
-  fade_out: 20
+# ====(PREFIX)====
+Prefix: "&l&f[&6JoinAnimation&f]&r&8»&r "
+
+# ====(VIP SUPPORT)====
+JoinVip:
+  Support:
+    # Use "true" or "false" To activate/deactivate this option
+    enabled: false
+  # Add player names
+  vip-list:
+    - BajanDoesYT
+  # Add messages to the aforementioned users, this applies
+  # at the time of joining the game.
+  # Use: {PLAYER} => player name
+  # Example:
+  # Join:
+  #   PlayerName:
+  #    message: "{PLAYER} just joined, please welcome them."
+  #    // sounds: https://www.digminecraft.com/lists/sound_list_pe.php
+  #    soundName: "random.totem"
+  Join:
+    BajanDoesYT:
+      message: "&f[&c{PLAYER}&f]&b:&e The server owner just joined."
+      soundName: "random.totem"
+  # Add messages to the aforementioned users, this applies
+  # at the time of leaving the game.
+  # Use: {PLAYER} => player name
+  # Example:
+  # Quit:
+  #   PlayerName:
+  #    message: "{PLAYER} the owner is gone."
+  #    // sounds: https://www.digminecraft.com/lists/sound_list_pe.php
+  #    soundName: "random.totem"
+  Quit:
+    BajanDoesYT:
+      message: "&f[&c{PLAYER}&f]&b:&e The server owner just left."
+      soundName: "random.pop2"
+    # Sound on/off settings
+  Sound:
+    # Use "true" or "false" To activate/deactivate this option
+    playerJoin: true
+    # Use "true" or "false" To activate/deactivate this option
+    playerQuit: true
+    # sounds: https://www.digminecraft.com/lists/sound_list_pe.php
+    # In case you forgot to put "soundName" in a message
+    default-joinSoundName: "mob.villager.yes"
+    # sounds: https://www.digminecraft.com/lists/sound_list_pe.php
+    # In case you forgot to put "soundName" in a message
+    default-quitSoundName: "mob.villager.no"
+
+# ====(PLAYER JOIN)====
+PlayerJoin:
+  BroadCast:
+    # (JOIN)
+    # Custom message when joining: 
+    # Use "{NAME}" to display player name
+    playerJoinMessage: "&8[&a+&8]&a {NAME}"
+    # sounds: https://www.digminecraft.com/lists/sound_list_pe.php
+    joinSoundName: "mob.irongolem.hit"
+    # Use "true" or "false" To activate/deactivate this option
+    playerJoin: true
+    # Use "true" or "false" To activate/deactivate this option
+    joinSound: true
+    # {FIRST_TIME}
+    # Use "{NAME}" to display player name
+    firstTimeBroadCastMessage:
+      - "=========================================="
+      - "&ePlease welcome {NAME}, he has joined our"
+      - "&ecommunity for the first time."
+      - "=========================================="
+  # (JOIN SETTINGS)
+  JoinType:
+    # Modes:
+    # UI => Send form
+    # BOOK => Send book
+    # FIRST_TIME => When you first join
+    # ALWAYS => Always when you join
+    # false => Disabled when joined
+    formType: "UI"
+    modeForm: "ALWAYS"
+    # TOAST => Achievement notification
+    # MESSAGE => Message in the chat
+    # TIP => Message in TIP
+    # POPUP Message in POPUP
+    # ACTION_BAR => Message in the action bar
+    # false => Disabled when joined
+    modeMessage: TOAST
+    # Use "true" or "false" To activate/deactivate this option
+    modeTitle: true
+    # Use "true" or "false" To activate/deactivate this option
+    modeAnimation: true
+    # Use "true" or "false" To activate/deactivate this option
+    firstTime: true
+    # (ANIMATION)
+    Animation:
+      # Modes:
+      # [BOOTS, CHAINS, PICKAXE, SHOVEL, SWORD, HEART, SHIELD, 
+      # SHIELD_ON_FIRE, MIRROR, BLINDNESS, HUNGER, POISON, 
+      # HEART_OF_WITHER, MULTi_HEART, EYE, PILLAGER, EMERALD, 
+      # TWISTER, TOTEM, GUARDIAN] and "false" => Disabled option
+      animationMode: "EMERALD"
+      # sounds: https://www.digminecraft.com/lists/sound_list_pe.php
+      soundName: "random.anvil_land"
+  # (MESSAGE)
+  Messages:
+    sendToast:
+      title: "&l&aRebirth&fBE&r&e v3.0.0"
+      subTitle: "&bHe is testing a new version of RebirthBE with new stuff!"
+    sendMessage:
+      - "&ePut something here, this is a welcome message >:C"
+      - "&b- RebirthBE v3.0.0"
+    sendTip:
+      - "&bWelcome!"
+      - "&6{NAME}"
+    sendPopup:
+      - "&bYou again, &d{NAME}&b?!"
+    sendActionBar:
+      - "&l&9JoinAnimation"
+    sendTitle:
+      titleMessage: "&l&6Welcome"
+      subTitleMessage: "&f{NAME}&b, thanks for using RebirthBE"
+
+    firstTimeMessage:
+      - "&e=================="
+      - "&bWow, you seem to be new."
+      - "&bWelcome."
+      - "&e=================="
+# ====(PLAYER QUIT)===
+PlayerQuit:
+  BroadCast:
+    # [QUIT]
+    # Custom message when joining: 
+    # Use "{NAME}" to display player name
+    playerQuitMessage: "&8[&c-&8]&c {NAME}"
+    # sounds: https://www.digminecraft.com/lists/sound_list_pe.php
+    quitSoundName: "mob.irongolem.walk"
+    # Use "true" or "false" To activate/deactivate this option
+    playerQuit: true
+    # Use "true" or "false" To activate/deactivate this option
+    quitSound: true
+# ====(SPAWN CUSTOM)====
+# Modes: 
+# DEFAULT => Upon joining, you will appear in the default world.
+
+# CUSTOM => You will be able to define the world where you want 
+# to spawn when you join. Use the command /joinanimation setspawn
+
+# false => Disable this option
+SpawnMode:
+  joinSpawn: "DEFAULT"
+  undefined-message: "&cYou have not defined &l&bJoinAnimation&r&c SpawnCustom. &dUse: /joinanimation setspawn"
+
+# ====(JOIN UI)====
+JoinUI:
+  # Use "true" or "false" To activate/deactivate this option
+  sendFormMessage: true
+  # Use "true" or "false" To activate/deactivate this option
+  modeAnimation: true
+  # Title 
+  sendTitle:
+      titleMessage: "&l&6Welcome"
+      subTitleMessage: "&f{NAME}&b, thanks for using RebirthBE"
+  Sounds:
+    # sounds: https://www.digminecraft.com/lists/sound_list_pe.php
+    closeForm: "random.pop2"
+    clickTheButton: "random.fizz"
+  # form
+  title: "&l&5RebirthBE"
+  content:
+    - "§eWelcome to the server friend :D"
+    - "§eI hope you like it very much"
+    - "{LINE}{LINE}&cVersion:&e 3.0.0"
+    - "&cReport bug:&e &ehttps://discord.gg/Yhtrg9vgwq"
+  # You can add an infinite number with or without commands.
+  # Example:
+  # JoinUI:
+  #   buttons:
+  #     ButtonName:
+  #       name: "Test"
+  #       // http or https
+  #       image: ""
+  #       // Use "CONSOLE" or "PLAYER"
+  #       target: CONSOLE
+  #       command: "give {PLAYER} apple 5"
+  #         - 
+  buttons:
+    JoinAnimation:
+      name: "Click to continue"
+      image: ""
+    Apple:
+      name: "Receive apple{LINE}click"
+      # http or https
+      image: "textures/items/apple"
+      command: "give {PLAYER} apple 5"
+      # Use "CONSOLE" or "PLAYER"
+      target: "CONSOLE"
+
+# ====(BOOK UI)====
+BookUI:
+  # Book info
+  title: "&l&cRebirthBE"
+  author: "&aBajanVlogs"
+  # Pages
+  pages:
+    # Here you can add a great infinity of pages
+    # Example:
+    # BookUI:
+    #   pages:
+    #     PaginaName:
+    #       // The page number, the first page is equal to "0"
+    #       page: 3
+    #       content:
+    #         - "Your content here"
+    JoinAnimation:
+      page: 0
+      content:
+        - "       &l&9RebirthBE   {LINE}{LINE}"
+        - "§bWelcome to the server friend :D"
+        - "§bI hope you like it very much"
+        - "{LINE}{LINE}&cVersion:&a 3.0.0"
+        - "&cReport bug:&a https://discord.gg/Yhtrg9vgwq"
+        - "&cGithub:&b https://github.com/BajanVlogs/"
+        - "&cAuthor: §aBajanVlogs"
+    Page2:
+      page: 1
+      content:
+        - "Here you can add many more information"
+        - "&cReport bug:&a https://discord.gg/Yhtrg9vgwq"
+        - "&cGithub:&b https://github.com/BajanVlogs/"
+        - "&cAuthor: §aBajanVlogs"
+
+# ====(MESSAGES)====
+Messages:
+  no-permission: "&cYou don't have permissions for this"
+  spawn-selected-successfully: "&aWorld custom spawn defined:&b {X}, {Y}, {Z}, world:&a {WORLD_NAME}"
+  spawn-successfully-removed: "&aThe old spawn has been successfully removed!"
